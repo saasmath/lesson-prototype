@@ -127,33 +127,32 @@
             {{/eachIndexed}}
         </script>
 
-        <script id="navlinks-template" type="text/x-handlebars-template">
-            <a class="brand" href="/">Lessons</a>
-            <ul class="nav">
-                {{#each navlinks}}
-                <li><a href="{{ link }}">{{ text }}</a></li>
-                {{/each}}
-            </ul>
-            <div class="btn-group pull-right">
-                <a class="btn disabled" href="#">
-                    <span class="icon-user"></span>
-                    User
-                </a>
-                <a class="btn disabled dropdown-toggle" data-toggle="dropdown" href="#">
-                    <span class="icon-chevron-down"></span>
-                </a>
+        <script id="navbar-template" type="text/x-handlebars-template">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="brand" href="/">Lessons</a>
+                    <ul class="nav">
+                        {{#each navlinks}}
+                        <li><a href="{{ link }}">{{ text }}</a></li>
+                        {{/each}}
+                    </ul>
+                    <div class="btn-group pull-right">
+                        <a class="btn disabled" href="#">
+                            <span class="icon-user"></span>
+                            User
+                        </a>
+                        <a class="btn disabled dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="icon-chevron-down"></span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </script>
 
     </head>
 
     <body>
-        <div class="navbar navbar-fixed-top" id="navbar">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                </div>
-            </div>
-        </div>
+        <div class="navbar navbar-fixed-top" id="navbar"></div>
 
         <div id="viewer">
             <div id="panel-holder">

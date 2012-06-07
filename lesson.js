@@ -51,7 +51,7 @@ $(document).ready(function () {
     // compile templates
     window.sidebarTemplate = Handlebars.compile($("#sidebar-template").html());
     window.mainTemplate = Handlebars.compile($("#main-template").html());
-    window.navlinksTemplate = Handlebars.compile($("#navlinks-template").html()); // not used currently
+    window.navbarTemplate = Handlebars.compile($("#navbar-template").html()); // not used currently
 
     $.ajax({
         type: "GET",
@@ -77,9 +77,11 @@ $(document).ready(function () {
         $main = $("#main");
         $extra = $("#extra");
         $panelHolder = $("#panel-holder");
+        $navbar = $("#navbar");
 
         $sidebar.html(sidebarTemplate(data));
         $main.html(mainTemplate(data));
+        $navbar.html(navbarTemplate({}));
 
         // animation stuff
         var speed = 200;
