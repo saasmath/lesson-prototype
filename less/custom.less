@@ -39,18 +39,20 @@ body {
         
         &#sidebar {
             width: 400px;
+            font-size: 14px;
             overflow-y: scroll;
 
             .sidebar-section {
-                margin: 10px;
-                border-radius: 5px;
+                // margin: 10px;
+                // border-radius: 5px;
                 background-color: white;
-                box-shadow: 2px 2px 5px @grayLight;
-                
+                padding-bottom: 10px;
+                // box-shadow: 2px 2px 5px @grayLight;
 
                 .sidebar-module-heading {
-                    padding: 20px;
-                    border-bottom: 3px solid @grayLighter;
+                    padding: 10px 15px;
+                    // border-top: 3px solid @grayLighter;
+                    // border-bottom: 3px solid @grayLighter;
                 }
 
                 .sidebar-module-title {
@@ -61,7 +63,7 @@ body {
 
                 .sidebar-module-index {
                     float: left;
-                    display: block;
+                    display: none;
                     text-align: center;
                     font-size: 20px;
                     height: 100%;
@@ -73,11 +75,7 @@ body {
                 }
 
                 .sidebar-module-body {
-                    padding: 20px;
-                }
-
-                ul {
-                    width: 100%;
+                    padding: 10px 15px;
                 }
 
                 .sidebar-node {
@@ -86,17 +84,13 @@ body {
 
                 }
 
-                li {
-                    margin: 10px 0px;
-                    display: block;
-                }
-
                 i {
                     height: 40px;
                     width: 30px;
-                    font-size: 30px;
+                    font-size: 24px;
                     margin-right: 10px;
                     color: @blue;
+                    vertical-align: middle;
                 }
 
             }

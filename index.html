@@ -28,15 +28,13 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="sidebar-module-body" id="module{{index}}body">
-                    <ul class="unstyled">
-                        {{#each nodes}}
-                        <li class="sidebar-node clearfix">
-                            <i class="{{ icon }} pull-left"></i>
-                            <span>{{ title }}</span>
-                            <i class="icon-ok pull-right"></i>
-                        </li>
-                        {{/each}}
-                    </ul>
+                    {{#each nodes}}
+                    <div class="sidebar-node clearfix">
+                        <i class="{{ icon }} pull-left"></i>
+                        <span>{{ title }}</span>
+                        <i class="icon-ok pull-right"></i>
+                    </div>
+                    {{/each}}
                 </div>
             </div>
             {{/eachIndexed}}
