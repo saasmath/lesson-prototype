@@ -98,9 +98,9 @@ $(document).ready(function () {
             }, speed);
         });
 
-        $("#module1heading").click(function () {
-            $("#module1body").collapse("toggle");
-        });
+        // add scrollspy
+        // for some reason, this doesn't work with $("#sidebar").scrollspy()
+        $("#main").scrollspy("refresh");
 
     }
 
