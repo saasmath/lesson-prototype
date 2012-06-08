@@ -100,6 +100,7 @@ $(document).ready(function () {
 
         // add scrollspy
         // for some reason, this doesn't work with $("#sidebar").scrollspy()
+        // somewhat related SO answer that pointed to this workaround: http://stackoverflow.com/questions/10602445/bootstrap-scrollspy-works-strange
         $("#main").scrollspy("refresh");
 
     }
