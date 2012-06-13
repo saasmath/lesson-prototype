@@ -17,7 +17,7 @@ $(document).ready(function () {
         if (arguments.length < 3) {
             throw new Error("Handlebars Helper equal needs 2 parameters");
         }
-        if ( lvalue != rvalue ) {
+        if ( lvalue !== rvalue ) {
             return options.inverse(this);
         } else {
             return options.fn(this);
@@ -71,107 +71,98 @@ $(document).ready(function () {
             });
         });
 
+        // store elements in variables
+        var $sidebar = $("#sidebar");
+        var $main = $("#main");
+        var $extra = $("#extra");
+
         // render templates
-        $sidebar = $("#sidebar");
-        $main = $("#main");
-        $extra = $("#extra");
         $sidebar.html(sidebarTemplate(data));
         $main.append(mainTemplate(data));
 
         // add scrollspy
         // for some reason, this doesn't work with $("#sidebar").scrollspy()
         // somewhat related SO answer that pointed to this workaround: http://stackoverflow.com/questions/10602445/bootstrap-scrollspy-works-strange
+        // TODO: this is not working yet.
         $main.scrollspy("refresh");
 
-        // temporary: click #main to expand to full view
-        $main.toggle( function () {
-            $(this).removeClass("span8").addClass("span12");
-            $("#sidebar").css("display", "none");
-        }, function () {
-            $(this).removeClass("span12").addClass("span8");
-            $("#sidebar").css("display", "block");
-        });
-
         // STICKY SIDEBAR AND NODE HEADINGS
-
-        function makeStickyClone($origEl, stickyClass) {
-            $origEl
-                .before($origEl.clone())
-                .css("width", $origEl.width())
-                .addClass(stickyClass);
+        function isWithinRange(val, min, max) {
+            return ((val > min) && (val < max)) ? true : false;
         }
 
-        /*
-         * $origEl: jquery element used to determine offset boundaries
-         * $scrollEl: jquery element within which scroll is registered
-         * buffer: amount to add/subtract from offset.top to ensure the sticky clone is triggered at the right time. ex: the buffer is -40 to account for the topbar.
-         * min:
-         * max:
-         * hideOrigEl: if true, hide the origin element used to determine offset boundaries
-         */
-        function updateStickyClone($origEl, $scrollEl, buffer, min, max, hideOrigEl) {
+        function printVals(arr){
+            var msg = _.reduce(arr, function (memo, i) {
+                return memo + " " + i;
+            }, "");
+            console.log(msg);
+        }
 
-            var scrollTop = $scrollEl.scrollTop();
-            var stickyClone = $(".sticky-clone", $origEl);
-
-            console.log(scrollTop + ", min: " + min + ", max: " + max);
-            min = min + buffer;
-            max = max + buffer;
-
-            if ((scrollTop > min) && (scrollTop < max)) {
-                stickyClone.css({
-                    "visibility": "visible"
-                });
-                if (hideOrigEl) {
-                    $origEl.css({
-                        "visibility": "hidden"
-                    });
-                }
+        function updateStickySidebar(y, min) {
+            if (y > min) {
+                $sidebar.addClass("fixed").removeClass("absolute");
             } else {
-                stickyClone.css({
-                    "visibility": "hidden"
-                });
-                if (hideOrigEl) {
-                    $origEl.css({
-                        "visibility": "visible"
-                    });
-                }
+                $sidebar.addClass("absolute").removeClass("fixed");
             }
         }
 
-        // buffer necessary due to topbar and margin
-        function updateStickySidebar() {
+        function updateStickyNodeHeading(y) {
+            if (y > minArr[0]) {
+                $stickyNodeHeading.show();
+            } else {
+                $stickyNodeHeading.hide();
+            }
 
-            var buffer = -50;
-            var $origEl = $("#sidebar");
-            var min = $origEl.offset().top;
-            var max = $("body").height();
-
-            updateStickyClone($origEl, $(window), buffer, min, max, true);
-        }
-
-        function updateStickyHeaders() {
-           $(".persist-area").each(function() {
-
-                var buffer = -40;
-                var $origEl = $(this);
-                var min = $origEl.offset().top;
-                var max = min + $origEl.height();
-
-                updateStickyClone($origEl, $(window), buffer, min, max, false);
+            _.each($(".persist-area"), function (el, i) {
+                var title = $(".node-heading span", $(el)).text();
+                var update = isWithinRange(y, minArr[i], maxArr[i]);
+                if (update) {
+                    $("span", $stickyNodeHeading).text(title);
+                }
             });
         }
 
-        // make clones
-        $(".persist-area").each(function() {
-            makeStickyClone($(".persist-header", this), "sticky-clone");
-        });
-        makeStickyClone($("#sidebar .sticky-orig"), "sticky-clone");
+        // these need to be outside updateStickyElems since $sidebar.offset()
+        // is different when position is fixed vs. absolute
+        var $stickyNodeHeading = $("#sticky-node-heading");
+        var buffer = -40;
+        var sidebarBuffer = -50;
+        var sidebarMin = $sidebar.offset().top + sidebarBuffer;
+        var minArr = [];
+        var maxArr = [];
 
-        // make
+        _.each($(".persist-area"), function (el, i) {
+            minArr.push($(el).offset().top + buffer);
+            maxArr.push($(el).offset().top + $(el).height() + buffer);
+        });
+
+        function updateStickyElems () {
+            var y = $(window).scrollTop();
+            updateStickySidebar(y, sidebarMin);
+            updateStickyNodeHeading(y);
+        }
+
+        // on scroll, update the sticky elements
         $(window)
-            .scroll(updateStickyHeaders)
-            .scroll(updateStickySidebar)
+            .scroll(updateStickyElems)
             .trigger("scroll");
+
+        // click fullscreen icons to expand to full view
+        $fullscreen = $(".expand-fullscreen", $stickyNodeHeading);
+        $iconEnlarge = $(".icon-fullscreen", $fullscreen);
+        $iconShrink = $(".icon-resize-small", $fullscreen);
+        $fullscreen.toggle(function() {
+            $main.removeClass("span8 offset4").addClass("span12");
+            $sidebar.hide();
+            $iconEnlarge.hide();
+            // treat iconShrink differently b/c it is hidden by default
+            $iconShrink.removeClass("hidden");
+        }, function() {
+            $main.removeClass("span12").addClass("span8 offset4");
+            $sidebar.show();
+            $iconEnlarge.show();
+            $iconShrink.addClass("hidden");
+        });
+
     }
 });

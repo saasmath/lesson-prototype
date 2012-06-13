@@ -1,12 +1,14 @@
 body {
     margin-top: 40px;
     margin-bottom: 40px;
+    top: 0;
+    bottom: 0;
 }
 
 .sticky-clone {
-  position: fixed;
-  top: 40px;
-  visibility: hidden;
+    position: fixed;
+    top: 40px;
+    visibility: hidden;
 }
 
 #briefing {
@@ -16,18 +18,22 @@ body {
     margin-bottom: 40px;
 }
 
-#main, #sidebar {
+#main, #sidebar, #sidebar-placeholder {
     margin-top: 20px;
 }
 
 #sidebar {
     font-size: 18px;
     line-height: 22px;
-    height: 1000px;
 
-    .sticky-clone {
-        top: 60px; /* placement is topbar height + margin-top of #sidebar */
+    &.fixed {
+        position: fixed;
+        top: 60px;
     }
+}
+
+.absolute {
+    position: absolute;
 }
 
 #extra {
@@ -50,21 +56,6 @@ body {
     .node {
         margin-bottom: 20px;
 
-        .node-heading {
-            font-size: 24px;
-            line-height: 28px;
-            padding: 20px;
-            background: @white;
-            margin-bottom: 2px;
-            box-shadow: 2px 2px 5px #ccc;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-
-            &.sticky-clone {
-                border-radius: 0px;
-            }
-        }
-
         .node-content,
         .node-content form p,
         .node-content form label {
@@ -84,6 +75,31 @@ body {
             box-shadow: 2px 2px 5px #ccc;
         }
     }
+}
+
+.node-heading {
+    padding: 20px;
+    background: @white;
+    margin-bottom: 2px;
+    box-shadow: 2px 2px 5px #ccc;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    span {
+        font-size: 24px;
+        line-height: 30px;
+    }
+
+    .expand-fullscreen {
+        display: inline-block;
+        font-size: 24px;
+    }
+}
+
+#sticky-node-heading {
+    border-radius: 0px;
+    position: fixed;
+    top: 40px;
 }
 
 // apollonian gasket

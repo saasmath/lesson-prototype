@@ -1,127 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Lesson Prototype</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="stylesheet/less" href="less/bootstrap.less">
+<head>
+    <title>Lesson Prototype</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet/less" href="less/bootstrap.less">
 
-        <script src="js/less.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-        <script src="js/jquery.sticky.js"></script>
-        <script src="js/jquery.scrollTo.js"></script>
-        <script src="js/handlebars.js"></script>
-        <script src="js/underscore.js"></script>
-        <script src="js/json2.js"></script>
-        <script src="js/backbone.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/d3.min.js"></script>
-        
-        <!-- Lesson code -->
-        <script src="lesson.js"></script>
+    <script src="js/less.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.scrollTo.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/json2.js"></script>
+    <script src="js/backbone.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/d3.min.js"></script>
+    
+    <!-- Lesson code -->
+    <script src="lesson.js"></script>
 
-        <script id="sidebar-template" type="text/x-handlebars-template">
-            <div class="sticky-orig nav-wrapper">
-                <ul class="nav nav-list">
-                {{#eachIndexed modules}}
-                    <li class="nav-header">{{ title }}</li>
-                    {{#each nodes}}
-                    <li class>
-                        <i class="{{ icon }} pull-left"></i>
-                        <a href="#{{ slug }}">{{ title }}</a>
-                    </li>
-                    {{/each}}
-                {{/eachIndexed}}
-                </ul>
-            </div>
-        </script>
+    <script id="video-node-partial" type="text/x-handlebars-template">
+       <iframe width="700" height="520" src="http://www.youtube.com/embed/{{ youtubeID }}" frameborder="0" allowfullscreen>
+       </iframe>
+    </script>
 
-        <script id="video-node-partial" type="text/x-handlebars-template">
-           <iframe width="700" height="520" src="http://www.youtube.com/embed/{{ youtubeID }}" frameborder="0" allowfullscreen>
-           </iframe>
-        </script>
+    <script id="exploration-node-partial" type="text/x-handlebars-template">
+        <div class="exploration-prompt">
+            {{ prompt }}
+        </div>
+        <div class="exploration-problem">
+            {{{ html }}}
+        </div>
+    </script>
 
-        <script id="exploration-node-partial" type="text/x-handlebars-template">
-            <div class="exploration-prompt">
-                {{ prompt }}
-            </div>
-            <div class="exploration-problem">
-                {{{ html }}}
-            </div>
-        </script>
+    <script id="exercise-node-partial" type="text/x-handlebars-template">
+        <div class="exercise-prompt">
+            {{ prompt }}
+        </div>
+        <div class="exercise-problem">
+            {{{ html }}}
+        </div>
+    </script>
 
-        <script id="exercise-node-partial" type="text/x-handlebars-template">
-            <div class="exercise-prompt">
-                {{ prompt }}
-            </div>
-            <div class="exercise-problem">
-                {{{ html }}}
-            </div>
-        </script>
+    <script id="quiz-node-partial" type="text/x-handlebars-template">
+        <form>
+            {{#each problems}}
+                {{> multiple-choice }}
+            {{/each}}
+            <button type="submit" class="btn btn-large">Check Answers</button>
+        </form>
+    </script>
 
-        <script id="quiz-node-partial" type="text/x-handlebars-template">
-            <form>
-                {{#each problems}}
-                    {{> multiple-choice }}
-                {{/each}}
-                <button type="submit" class="btn btn-large">Check Answers</button>
-            </form>
-        </script>
+    <script id="multiple-choice-partial" type="text/x-handlebars-template">
+        <div class="quiz-problem">
+            <h3>Problem</h3>
+            <p>{{ prompt }}</p>
+            {{#each options}}
+            <label class="radio">
+                <input type="radio"> {{ content }}
+            </label>
+            {{/each}}
+        </div>
+    </script>
 
-        <script id="multiple-choice-partial" type="text/x-handlebars-template">
-            <div class="quiz-problem">
-                <h3>Problem</h3>
-                <p>{{ prompt }}</p>
-                {{#each options}}
-                <label class="radio">
-                    <input type="radio"> {{ content }}
-                </label>
-                {{/each}}
-            </div>
-        </script>
+    <script id="glue-node-partial" type="text/x-handlebars-template">
+        <div>{{ content }}</div>
+    </script>
 
-        <script id="glue-node-partial" type="text/x-handlebars-template">
-            <div>{{ content }}</div>
-        </script>
+    <script id="richtext-node-partial" type="text/x-handlebars-template">
+        <div>{{ content }}</div>
+    </script>
 
-        <script id="richtext-node-partial" type="text/x-handlebars-template">
-            <div>{{ content }}</div>
-        </script>
-
-        <script id="main-template" type="text/x-handlebars-template">
+    <script id="sidebar-template" type="text/x-handlebars-template">
+        <div class="nav-wrapper">
+            <ul class="nav nav-list">
             {{#eachIndexed modules}}
-            <div class="module">
-                <h1 class="module-heading">{{ title }}</h1>
+                <li class="nav-header">{{ title }}</li>
                 {{#each nodes}}
-                <div class="node persist-area" id="{{ slug }}">
-                    <h2 class="node-heading persist-header">{{ title }}</h2>
-                    <div class="node-content">
-                        {{#equal nodeType "video" }}
-                            {{> video-node }}
-                        {{/equal}}
-                        {{#equal nodeType "exploration" }}
-                            {{> exploration-node }}
-                        {{/equal}}
-                        {{#equal nodeType "exercise" }}
-                            {{> exercise-node }}
-                        {{/equal}}
-                        {{#equal nodeType "quiz" }}
-                            {{> quiz-node }}
-                        {{/equal}}
-                        {{#equal nodeType "glue" }}
-                            {{> glue-node }}
-                        {{/equal}}
-                        {{#equal nodeType "text" }}
-                            {{> text-node }}
-                        {{/equal}}
-                    </div>
-                </div>
+                <li class>
+                    <i class="{{ icon }} pull-left"></i>
+                    <a href="#{{ slug }}">{{ title }}</a>
+                </li>
                 {{/each}}
+            {{/eachIndexed}}
+            </ul>
+        </div>
+    </script>
+
+    <script id="main-template" type="text/x-handlebars-template">
+        {{#each modules}}
+        <div class="module">
+            <h1 class="module-heading">{{ title }}</h1>
+            {{#eachIndexed nodes}}
+            <div class="node persist-area" id="{{ slug }}">
+                <div class="node-heading">
+                    <span>{{ title }}</span>
+                </div>
+                <div class="node-content">
+                    {{#equal nodeType "video" }}
+                        {{> video-node }}
+                    {{/equal}}
+                    {{#equal nodeType "exploration" }}
+                        {{> exploration-node }}
+                    {{/equal}}
+                    {{#equal nodeType "exercise" }}
+                        {{> exercise-node }}
+                    {{/equal}}
+                    {{#equal nodeType "quiz" }}
+                        {{> quiz-node }}
+                    {{/equal}}
+                    {{#equal nodeType "glue" }}
+                        {{> glue-node }}
+                    {{/equal}}
+                    {{#equal nodeType "text" }}
+                        {{> text-node }}
+                    {{/equal}}
+                </div>
             </div>
             {{/eachIndexed}}
-        </script>
+        </div>
+        {{/each}}
 
+        <div class="node-heading" id="sticky-node-heading">
+            <span>Title</span>
+            <div class="expand-fullscreen">
+                <i class="icon-fullscreen"></i>
+                <i class="icon-resize-small hidden"></i>
+            </div>
+        </div>
+    </script>
+    
 </head>
+
 <body>
 
 <div class="navbar navbar-fixed-top">
@@ -147,10 +158,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="span4" id="sidebar"></div>
-        <div class="span8" id="main"></div>
+        <div class="span4 absolute" id="sidebar"></div>
+        <div class="span8 offset4 absolute" id="main"></div>
         <div class="span4" id="extra"></div>
     </div>
 </div>
+
 </body>
 </html>
