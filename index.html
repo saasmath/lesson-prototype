@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Linear Perspective</title>
+        <title>Lesson Prototype</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link rel="stylesheet/less" href="less/bootstrap.less">
@@ -9,6 +9,7 @@
         <script src="js/less.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
+        <script src="js/jquery.scrollTo.js"></script>
         <script src="js/handlebars.js"></script>
         <script src="js/underscore.js"></script>
         <script src="js/json2.js"></script>
@@ -20,7 +21,7 @@
         <script src="lesson.js"></script>
 
         <script id="sidebar-template" type="text/x-handlebars-template">
-            <div class="nav-wrapper">
+            <div class="sticky-orig nav-wrapper">
                 <ul class="nav nav-list">
                 {{#eachIndexed modules}}
                     <li class="nav-header">{{ title }}</li>
@@ -83,20 +84,18 @@
             <div>{{ content }}</div>
         </script>
 
-        <script id="text-node-partial" type="text/x-handlebars-template">
+        <script id="richtext-node-partial" type="text/x-handlebars-template">
             <div>{{ content }}</div>
         </script>
 
         <script id="main-template" type="text/x-handlebars-template">
             {{#eachIndexed modules}}
             <div class="module">
-                <div class="module-heading">
-                    <h1>{{ index }}. {{ title }}</h1>
-                </div>
+                <h1 class="module-heading">{{ title }}</h1>
                 {{#each nodes}}
-                <div class="node" id="{{ slug }}">
-                    <h2>{{ title }}</h2>
-                    <div class="node-content node-{{ nodeType }}">
+                <div class="node persist-area" id="{{ slug }}">
+                    <h2 class="node-heading persist-header">{{ title }}</h2>
+                    <div class="node-content">
                         {{#equal nodeType "video" }}
                             {{> video-node }}
                         {{/equal}}
@@ -122,43 +121,36 @@
             {{/eachIndexed}}
         </script>
 
-        <script id="navbar-template" type="text/x-handlebars-template">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="brand" href="/">Lessons</a>
-                    <ul class="nav">
-                        {{#each navlinks}}
-                        <li><a href="{{ link }}">{{ text }}</a></li>
-                        {{/each}}
-                    </ul>
-                    <div class="btn-group pull-right">
-                        <a class="btn disabled" href="#">
-                            <span class="icon-user"></span>
-                            User
-                        </a>
-                        <a class="btn disabled dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="icon-chevron-down"></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </script>
+</head>
+<body>
 
-    </head>
-
-    <body>
-        <div class="navbar navbar-fixed-top" id="navbar"></div>
-
-        <div id="viewer">
-            <div id="panel-holder">
-                <div class="panel" id="sidebar"></div>
-                <div class="resize" id="resize1"></div>
-                <div class="panel" id="main" data-spy="scroll" data-target="#sidebar" data-offset="0"></div>
-                <div class="resize" id="resize2"></div>
-                <div class="panel" id="extra">
-                    <h1>Questions</h1>
-                </div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="/">Lessons</a>
+            <div class="btn-group pull-right">
+                <a class="btn disabled" href="#">
+                    <span class="icon-user"></span>
+                    User
+                </a>
+                <a class="btn disabled dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span class="icon-chevron-down"></span>
+                </a>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="span12" id="briefing">
+            <h1>Mission Briefing</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4" id="sidebar"></div>
+        <div class="span8" id="main"></div>
+        <div class="span4" id="extra"></div>
+    </div>
+</div>
+</body>
 </html>

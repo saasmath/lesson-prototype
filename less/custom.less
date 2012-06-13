@@ -1,124 +1,89 @@
-/* Sorry, this is a huge mess right now =( */
-
 body {
-    padding-top: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
-#viewer {
-    position: absolute;
-    top: 40px; // to account for top navbar 
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
+.sticky-clone {
+  position: fixed;
+  top: 40px;
+  visibility: hidden;
 }
 
-#panel-holder {
+#briefing {
+    background: @white;
+    height: 800px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
 
-    position: relative;
-    height: 100%;
-    width: 2000px;
+#main, #sidebar {
+    margin-top: 20px;
+}
 
-    .resize {
-        width: 20px;
-        // box-shadow: inset 1px 0px 10px @grayLight;
-        background-color: @grayLighter;
+#sidebar {
+    font-size: 18px;
+    line-height: 22px;
+    height: 1000px;
 
-        &:hover {
-            background-color: lighten(@green, 30%);
-        }
-    }
-
-    .panel {
-
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        overflow-y: scroll;
-        box-sizing: border-box;
-        
-        &#sidebar {
-            width: 400px;
-            font-size: 14px;
-            overflow-y: scroll;
-
-            .sidebar-section {
-                // margin: 10px;
-                // border-radius: 5px;
-                background-color: white;
-                padding-bottom: 10px;
-                // box-shadow: 2px 2px 5px @grayLight;
-
-                i {
-                    height: 40px;
-                    width: 30px;
-                    font-size: 24px;
-                    margin-right: 10px;
-                    color: @blue;
-                    vertical-align: middle;
-                }
-
-            }
-
-            div, p, label, h3  {
-                font-size: 18px;
-            }
-        }
-
-        &#main {
-            left: 420px;
-            width: 800px;
-            padding: 40px 0px;
-
-            div, p, label {
-                font-size: 18px;
-                line-height: 28px;
-            }
-
-            .module-heading {
-                padding: 20px 30px;
-                margin-bottom: 30px;
-                margin-right: 10px;
-                border-radius: 5px;
-                background-color: white;
-                box-shadow: 2px 2px 5px @grayLight;
-            }
-
-            .node {
-                padding: 20px 30px;
-                margin-bottom: 30px;
-                margin-right: 10px;
-                border-radius: 5px;
-                background-color: white;
-                box-shadow: 2px 2px 5px @grayLight;
-            }
-
-            .module {
-                margin-bottom: 100px;
-            }
-        }
-
-        &#extra {
-            left: 1240px;
-            width: 500px;
-            margin: 40px 10px;
-            // background-color: white;
-        }
+    .sticky-clone {
+        top: 60px; /* placement is topbar height + margin-top of #sidebar */
     }
 }
 
-// scrollbar
-::-webkit-scrollbar {
-    width: 0px;
+#extra {
+    display: none;
 }
 
-::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.1);
-}
+.module {
+    margin-bottom: 40px;
 
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: rgba(0,128,200,0.1);
+    .module-heading {
+        padding: 20px;
+        text-transform: uppercase;
+        font-size: 18px;
+        line-height: 20px;
+        // background: #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .node {
+        margin-bottom: 20px;
+
+        .node-heading {
+            font-size: 24px;
+            line-height: 28px;
+            padding: 20px;
+            background: @white;
+            margin-bottom: 2px;
+            box-shadow: 2px 2px 5px #ccc;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+
+            &.sticky-clone {
+                border-radius: 0px;
+            }
+        }
+
+        .node-content,
+        .node-content form p,
+        .node-content form label {
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 24px;
+        }
+
+        .node-content {
+            padding: 20px;
+            background: @white;
+            padding-bottom: 10px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            box-shadow: 2px 2px 5px #ccc;
+        }
+    }
 }
 
 // apollonian gasket
@@ -127,6 +92,7 @@ body {
     stroke-width: 1px;
     stroke: black;
 }
+
 .draggable {
     fill: red;
 }

@@ -5,14 +5,17 @@
     "modules":  [
         {
             "title": "Introduction to linear perspective",
+            "slug": "intro-to-linear-perspective",
             "nodes": [0]
         },
         {
             "title": "The 1300s - before the \"discovery\" of linear perspective",
+            "slug": "the-1300s-before-the-discovery-of-linear-perspective",
             "nodes": [2]
         },
         {
             "title": "The 1400s in Florence - linear perspective is \"discovered\"",
+            "slug": "the-1400s-in-florence",
             "nodes": [3,4,5,6]
         }
     ],

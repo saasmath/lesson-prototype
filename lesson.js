@@ -41,29 +41,28 @@ $(document).ready(function () {
 
     // register partials
     Handlebars.registerPartial("video-node", $("#video-node-partial").html());
-    Handlebars.registerPartial("exploration-node", $("#exploration-node-partial").html());
     Handlebars.registerPartial("exercise-node", $("#exercise-node-partial").html());
+    Handlebars.registerPartial("exploration-node", $("#exploration-node-partial").html());
     Handlebars.registerPartial("quiz-node", $("#quiz-node-partial").html());
     Handlebars.registerPartial("multiple-choice", $("#multiple-choice-partial").html());
     Handlebars.registerPartial("glue-node", $("#glue-node-partial").html());
-    Handlebars.registerPartial("text-node", $("#text-node-partial").html());
+    Handlebars.registerPartial("richtext-node", $("#text-node-partial").html());
 
     // compile templates
     window.sidebarTemplate = Handlebars.compile($("#sidebar-template").html());
     window.mainTemplate = Handlebars.compile($("#main-template").html());
-    window.navbarTemplate = Handlebars.compile($("#navbar-template").html()); // not used currently
 
     $.ajax({
         type: "GET",
         dataType: "json",
         url: lessonDataPath,
-        success: addElems
+        success: renderPage
     });
 
-    function addElems (data) {
+    function renderPage (data) {
 
-        // preprocess data (add nodes and icons)
         _.each(data.modules, function (module, i) {
+            // preprocess data (add nodes and icons)
             module.nodes = _.map(module.nodes, function (nodeID, i) {
                 var node = data.nodeList[nodeID];
                 var type = node.nodeType;
@@ -72,37 +71,107 @@ $(document).ready(function () {
             });
         });
 
-        // render
+        // render templates
         $sidebar = $("#sidebar");
         $main = $("#main");
         $extra = $("#extra");
-        $panelHolder = $("#panel-holder");
-        $navbar = $("#navbar");
-
         $sidebar.html(sidebarTemplate(data));
-        $main.html(mainTemplate(data));
-        $navbar.html(navbarTemplate({}));
-
-        // animation stuff
-        var speed = 200;
-
-        $extra.click(function () {
-            $panelHolder.animate({
-                left: "-350px"
-            }, speed);
-        });
-
-        $sidebar.click(function () {
-            $panelHolder.animate({
-                left: "0px"
-            }, speed);
-        });
+        $main.append(mainTemplate(data));
 
         // add scrollspy
         // for some reason, this doesn't work with $("#sidebar").scrollspy()
         // somewhat related SO answer that pointed to this workaround: http://stackoverflow.com/questions/10602445/bootstrap-scrollspy-works-strange
-        $("#main").scrollspy("refresh");
+        $main.scrollspy("refresh");
 
+        // temporary: click #main to expand to full view
+        $main.toggle( function () {
+            $(this).removeClass("span8").addClass("span12");
+            $("#sidebar").css("display", "none");
+        }, function () {
+            $(this).removeClass("span12").addClass("span8");
+            $("#sidebar").css("display", "block");
+        });
+
+        // STICKY SIDEBAR AND NODE HEADINGS
+
+        function makeStickyClone($origEl, stickyClass) {
+            $origEl
+                .before($origEl.clone())
+                .css("width", $origEl.width())
+                .addClass(stickyClass);
+        }
+
+        /*
+         * $origEl: jquery element used to determine offset boundaries
+         * $scrollEl: jquery element within which scroll is registered
+         * buffer: amount to add/subtract from offset.top to ensure the sticky clone is triggered at the right time. ex: the buffer is -40 to account for the topbar.
+         * min:
+         * max:
+         * hideOrigEl: if true, hide the origin element used to determine offset boundaries
+         */
+        function updateStickyClone($origEl, $scrollEl, buffer, min, max, hideOrigEl) {
+
+            var scrollTop = $scrollEl.scrollTop();
+            var stickyClone = $(".sticky-clone", $origEl);
+
+            console.log(scrollTop + ", min: " + min + ", max: " + max);
+            min = min + buffer;
+            max = max + buffer;
+
+            if ((scrollTop > min) && (scrollTop < max)) {
+                stickyClone.css({
+                    "visibility": "visible"
+                });
+                if (hideOrigEl) {
+                    $origEl.css({
+                        "visibility": "hidden"
+                    });
+                }
+            } else {
+                stickyClone.css({
+                    "visibility": "hidden"
+                });
+                if (hideOrigEl) {
+                    $origEl.css({
+                        "visibility": "visible"
+                    });
+                }
+            }
+        }
+
+        // buffer necessary due to topbar and margin
+        function updateStickySidebar() {
+
+            var buffer = -50;
+            var $origEl = $("#sidebar");
+            var min = $origEl.offset().top;
+            var max = $("body").height();
+
+            updateStickyClone($origEl, $(window), buffer, min, max, true);
+        }
+
+        function updateStickyHeaders() {
+           $(".persist-area").each(function() {
+
+                var buffer = -40;
+                var $origEl = $(this);
+                var min = $origEl.offset().top;
+                var max = min + $origEl.height();
+
+                updateStickyClone($origEl, $(window), buffer, min, max, false);
+            });
+        }
+
+        // make clones
+        $(".persist-area").each(function() {
+            makeStickyClone($(".persist-header", this), "sticky-clone");
+        });
+        makeStickyClone($("#sidebar .sticky-orig"), "sticky-clone");
+
+        // make
+        $(window)
+            .scroll(updateStickyHeaders)
+            .scroll(updateStickySidebar)
+            .trigger("scroll");
     }
-
 });
