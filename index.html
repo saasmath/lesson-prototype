@@ -34,11 +34,20 @@
         </div>
     </script>
 
-    <script id="exercise-node-partial" type="text/x-handlebars-template">
-        <div class="exercise-prompt">
+    <script id="challenge-node-partial" type="text/x-handlebars-template">
+        <div class="challenge-prompt">
             {{ prompt }}
         </div>
-        <div class="exercise-problem">
+        <div class="challenge-problem">
+            {{{ html }}}
+        </div>
+    </script>
+
+    <script id="practice-node-partial" type="text/x-handlebars-template">
+        <div class="practice-prompt">
+            {{ prompt }}
+        </div>
+        <div class="practice-problem">
             {{{ html }}}
         </div>
     </script>
@@ -104,8 +113,11 @@
                     {{#equal nodeType "exploration" }}
                         {{> exploration-node }}
                     {{/equal}}
-                    {{#equal nodeType "exercise" }}
-                        {{> exercise-node }}
+                    {{#equal nodeType "challenge" }}
+                        {{> challenge-node }}
+                    {{/equal}}
+                    {{#equal nodeType "practice" }}
+                        {{> practice-node }}
                     {{/equal}}
                     {{#equal nodeType "quiz" }}
                         {{> quiz-node }}

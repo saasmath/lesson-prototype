@@ -1,0 +1,147 @@
+{
+    "title": "Equations",
+    "slug": "equations",
+
+    "modules":  [
+        {
+            "slug": "equations-introduction",
+            "title": "Introduction",
+            "nodes": [0,1]
+        },
+        {
+            "slug": "one-step-equations",
+            "title": "One-Step Equations",
+            "nodes": [2,3,4,5]
+        },
+        {
+            "slug": "two-step-equations",
+            "title": "Two-Step Equations",
+            "nodes": [6,7,8]
+        },
+        {
+            "slug": "multi-step-equations",
+            "title": "Multi-Step Equations",
+            "nodes": [9,10,11]
+        },
+        {
+            "slug": "equations-boss",
+            "title": "Prove Your Mastery",
+            "nodes": [12]
+        }
+    ],
+
+    "nodeList":  {
+        "0":    {
+                    "id": 0,
+                    "slug": "introduction-to-equations",
+                    "title": "Introduction to Equations",
+                    "nodeType": "video",
+                    "youtubeID": ""
+                },
+        "1":    {
+
+                    "id": 1,
+                    "slug": "balancing-equations-1",
+                    "title": "Balancing Equations",
+                    "nodeType": "exploration",
+                    "prompt": "Lorem ipsum",
+                    "html": "<div class='filler-node-content'>Lorem</div>"
+                },
+        "2":    {
+
+                    "id": 2,
+                    "slug": "simple-equations-1",
+                    "title": "Simple Equations",
+                    "nodeType": "video",
+                    "youtubeID": ""
+                },
+        "3":    {
+
+                    "id": 3,
+                    "slug": "simple-equations-2",
+                    "title": "Simple Equations",
+                    "nodeType": "practice",
+                    "prompt": "Lorem ipsum",
+                    "html": "<div class='filler-node-content'>Lorem</div>"
+                },
+        "4":    {
+
+                    "id": 4,
+                    "slug": "simple-equations-with-negative-numbers",
+                    "title": "Simple Equations with Negative Numbers",
+                    "nodeType": "practice",
+                    "prompt": "Lorem ipsum",
+                    "html": "<div class='filler-node-content'>Lorem</div>"
+                },
+        "5":    {
+
+                    "id": 5,
+                    "slug": "one-step-equations-challenge",
+                    "title": "One-Step Equations Challenge",
+                    "nodeType": "challenge",
+                    "prompt": "Lorem ipsum",
+                    "html": "<div class='filler-node-content'>Lorem</div>"
+                },
+        "6":    {
+
+                    "id": 6,
+                    "slug": "balancing-equations-2",
+                    "title": "Balancing Equations (Two-Step)",
+                    "nodeType": "exploration",
+                    "prompt": "Lorem Ipsum",
+                    "html": "<div class='filler-node-content'>Lorem</div>"
+                },
+        "7":    {
+
+                    "id": 7,
+                    "slug": "two-step-equations-1",
+                    "title": "Two-Step Equations",
+                    "nodeType": "video",
+                    "youtubeID": ""
+
+                },
+        "8":    {
+
+                    "id": 8,
+                    "slug": "two-step-equations-challenge",
+                    "title": "Two-Step Equations Challenge",
+                    "nodeType": "challenge",
+                    "prompt": "Lorem Ipsum",
+                    "html": "<div class='filler-node-content'>Lorem</div>"
+                },
+        "9":    {
+
+                    "id": 9,
+                    "slug": "multi-step-equations-1",
+                    "title": "Multi-Step Equations",
+                    "nodeType": "video",
+                    "youtubeID": ""
+                },
+        "10":    {
+
+                    "id": 10,
+                    "slug": "word-problem",
+                    "title": "Word Problem",
+                    "nodeType": "video",
+                    "youtubeID": ""
+                },
+        "11":    {
+
+                    "id": 11,
+                    "slug": "multi-step-equations-challenge",
+                    "title": "Multi-Step Equations Challenge",
+                    "nodeType": "challenge",
+                    "prompt": "Lorem Ipsum",
+                    "html": "<div class='filler-node-content'>Lorem</div>"
+                },
+        "12":    {
+
+                    "id": 12,
+                    "slug": "linear-equations-challenge",
+                    "title": "Linear Equations Challenge",
+                    "nodeType": "challenge",
+                    "prompt": "Lorem Ipsum",
+                    "html": "<div class='filler-node-content'>Lorem</div>"
+                }
+    }
+}
