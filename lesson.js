@@ -1,12 +1,13 @@
 $(document).ready(function () {
 
-    var lesson = "test";
+    var lesson = "equations";
     var lessonDataPath = "../lessons/" + lesson + "/data.json";
 
     window.iconMap = {
         video: "icon-facetime-video",
         exploration: "icon-plane",
-        exercise: "icon-bar-chart",
+        challenge: "icon-bolt",
+        practice: "icon-ok",
         quiz: "icon-list-alt",
         glue: "icon-align-left",
         text: "icon-align-left"
@@ -41,7 +42,8 @@ $(document).ready(function () {
 
     // register partials
     Handlebars.registerPartial("video-node", $("#video-node-partial").html());
-    Handlebars.registerPartial("exercise-node", $("#exercise-node-partial").html());
+    Handlebars.registerPartial("practice-node", $("#practice-node-partial").html());
+    Handlebars.registerPartial("challenge-node", $("#challenge-node-partial").html());
     Handlebars.registerPartial("exploration-node", $("#exploration-node-partial").html());
     Handlebars.registerPartial("quiz-node", $("#quiz-node-partial").html());
     Handlebars.registerPartial("multiple-choice", $("#multiple-choice-partial").html());
