@@ -88,7 +88,7 @@ $(document).ready( function () {
         var mainClassExpanded = ""; // span8
         var extraClassExpanded = "span4 offset8 expanded";
 
-        var sidebarClassCollapsed = "span1";
+        var sidebarClassCollapsed = "span1 collapsed";
         var sidebarClassExpanded = "span3";
 
         collapseExtra(0);
