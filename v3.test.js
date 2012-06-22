@@ -3,48 +3,56 @@ $(document).ready(function(){
     var main = $("#main");
     var extra = $("#extra");
 
+    var mainBase = "span10";
+
     var sidebarExpandQA = "span1";
-    var mainExpandQA = "span10 offset1";
+    var mainExpandQA = "offset1";
     var extraExpandQA = "span4 offset11";
 
     var sidebarCompressQA = "span4";
-    var mainCompressQA = "span10 offset4";
+    var mainCompressQA = "offset4";
     var extraCompressQA = "span1 offset14";
 
     // initialize
-    compressQA();
+    main.addClass(mainBase);
+    compressQA(0);
+
+    var speed = 400;
+
+    var qa = $("#qa");
+    var buttons = [$("#expand-btn"), $("#questions-btn"), $("#comments-btn")];
 
     // TODO: fix this so it's based on a data attribute.
-    $("#expandButton").toggle(function() {
-        expandQA();
-    }, function() {
-        compressQA();
+    _.each(buttons, function(button, i) {
+        button.click( function() {
+            if (qa.css("display") === "none") {
+                expandQA(speed);
+            } else {
+                compressQA(speed);
+            }
+        });
     });
 
-    function expandQA () {
+    function expandQA (speed) {
         $("li a", sidebar).css("visibility", "hidden");
         $("li.nav-header", sidebar).css("visibility", "hidden");
+        $("#qa-compressed").hide();
+        $("#qa").show();
 
-        sidebar.removeClass(sidebarCompressQA);
-        main.removeClass(mainCompressQA);
-        extra.removeClass(extraCompressQA);
-
-        sidebar.addClass(sidebarExpandQA);
-        main.addClass(mainExpandQA);
-        extra.addClass(extraExpandQA);
+        sidebar.switchClass(sidebarCompressQA, sidebarExpandQA, speed);
+        main.switchClass(mainCompressQA, mainExpandQA, speed);
+        extra.switchClass(extraCompressQA, extraExpandQA, speed);
     }
 
-    function compressQA () {
+    function compressQA (speed) {
         $("li a", sidebar).css("visibility", "visible");
         $("li.nav-header", sidebar).css("visibility", "visible");
+        $("#qa").hide();
+        $("#qa-compressed").show();
 
-        sidebar.removeClass(sidebarExpandQA);
-        main.removeClass(mainExpandQA);
-        extra.removeClass(extraExpandQA);
-
-        sidebar.addClass(sidebarCompressQA);
-        main.addClass(mainCompressQA);
-        extra.addClass(extraCompressQA);
+        sidebar.switchClass(sidebarExpandQA, sidebarCompressQA, speed);
+        main.switchClass(mainExpandQA, mainCompressQA, speed);
+        extra.switchClass(extraExpandQA, extraCompressQA, speed);
     }
 
     // populate content!

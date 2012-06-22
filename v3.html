@@ -151,7 +151,7 @@
                 <a class="brand" href="#">
                     Khan Academy
                 </a>
-                <button class="btn btn-primary" id="expandButton">Expand Q+A</button>
+                <button class="btn btn-primary" id="expand-btn">Expand Q+A</button>
             </div>
         </div>
     </div>
@@ -166,12 +166,19 @@
 <img src="http://www.khanacademy.org/images/badges/meteorite-medium.png">                
 <img src="http://www.khanacademy.org/images/badges/meteorite-medium.png">                
                 </div>
-                <div id="qa">
+                <div id="qa" style="display: none;">
                     <ul class="nav nav-tabs">
                       <li><a href="#home" data-toggle="tab">Questions</a></li>
-                      <li><a href="#profile" data-toggle="tab">Answers</a></li>
                       <li><a href="#messages" data-toggle="tab">Comments</a></li>
                     </ul>
+                </div>
+                <div id="qa-compressed">
+                    <button class="btn btn-primary qa-btn">
+                        <i id="questions-btn" class="icon-question-sign"></i>
+                    </button>
+                    <button class="btn btn-primary qa-btn">
+                        <i id="comments-btn" class="icon-comment"></i>
+                    </button>
                 </div>
             </div>
         </div>
