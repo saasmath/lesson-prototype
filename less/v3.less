@@ -1,0 +1,185 @@
+@bodyBackground: #F0EFE7;
+@sideBackground: #ddd;
+@mainBackground: #fff;
+@mainBackgroundShadow: #6FAFD3;
+@amt: 10%;
+
+body {
+    background: @bodyBackground;
+}
+
+.background-gradient {
+    position: fixed;
+    z-index: -1000;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: -webkit-linear-gradient(top, rgba(254,255,255,1) 0%,rgba(221,241,249,1) 35%,rgba(160,216,239,1) 100%);
+}
+
+.holder {
+    position: absolute;
+    top: 40px;
+    bottom: 10px;
+}
+
+#qa, #sidebar-inner {
+    position: absolute;
+    // background: @sideBackground;
+    top: 150px;
+    bottom: 150px;
+    left: 0;
+    right: 0;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#badges {
+    position: absolute;
+    top: 70px;
+    height: 70px;
+    left: 0;
+    right: 0;
+    // background: @sideBackground;
+    overflow: hidden;
+
+    img {
+        width: 70px;
+        height: 70px;
+        margin-right: -20px;
+    }
+}
+
+#extra, #sidebar {
+    position: fixed;
+    height: 100%;
+}
+
+#qa {
+    background: @mainBackground;
+    box-shadow: 2px 2px 10px @mainBackgroundShadow;
+}
+
+#main, #extra, #sidebar,
+#qa {
+    box-sizing: border-box;
+}
+
+#main {
+    // background: @mainBackground;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: @mainBackground;
+    box-shadow: 2px 2px 10px @mainBackgroundShadow;
+}
+
+.circle {
+    // border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    margin: 10px 0px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    background: @grayLight;
+    border-color: darken(@grayLight, @amt);
+
+    // &.videoe {
+    //     background: @grayLight;
+    //     border-color: darken(@grayLight, @amt);
+    // }
+
+    // &.texte {
+    //     background: @yellow;
+    //     border-color: darken(@yellow, @amt);
+    // }
+
+    // &.exploratione {
+    //     background: @green;
+    //     border-color: darken(@green, @amt);
+    // }
+
+    // &.practicee {
+    //     background: @blue;
+    //     border-color: darken(@blue, @amt);
+    // }
+
+    // &.challengee {
+    //     background: @yellow;
+    //     border-color: darken(@yellow, @amt);
+    // }
+}
+
+ul.nav-list li i {
+    font-size: 36px;
+}
+
+ul.nav-list li a,
+ul.nav-list li.nav-header {
+    display: none;
+}
+
+// #main, #extra, #sidebar {
+//     position: absolute;
+//     top: 0;
+//     bottom: 0;
+//     box-sizing: border-box;    
+//     background: #eee;
+// }
+
+// #main {
+//     padding: 20px;
+//     overflow-y: scroll;
+// }
+
+// #extra {
+//     padding: 10px;
+// }
+
+// #sidebar {
+//     padding: 10px;
+// }
+
+// #sidebar.collapsed a,
+// #sidebar.collapsed li.nav-header {
+//     visibility: hidden;
+// }
+
+// #extra.collapsed {
+//     border-top-left-radius: 10px;
+//     border-bottom-left-radius: 10px;
+// }
+
+// #extra.expanded {
+//     border-radius: 10px;
+// }
+
+.node h1 {
+    margin-bottom: 20px;
+}
+
+.video {
+    height: 400px;
+    width: 100%;
+    background: black;
+    margin: 0px auto;
+}
+
+.node {
+    width: 100%;
+    margin-bottom: 600px;
+    background: @mainBackground;
+}
+
+.option {
+    font-size: 50px;
+    height: 70px;
+    line-height: 70px;
+    margin: 40px 0px;
+    text-align: center;
+    width: 100%;
+    border: 4px dashed #ccc;
+    color: blue;
+}​

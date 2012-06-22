@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet/less" href="less/bootstrap-v3.less">
+
+    <script src="js/less.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/jquery.scrollTo.js"></script>
+    <script src="js/handlebars.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="js/json2.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/d3.min.js"></script>
+
+    <script src="v3.test.js"></script>
+
+    <script id="video-node-partial" type="text/x-handlebars-template">
+       <iframe width="700" height="520" src="http://www.youtube.com/embed/{{ youtubeID }}" frameborder="0" allowfullscreen>
+       </iframe>
+    </script>
+
+    <script id="exploration-node-partial" type="text/x-handlebars-template">
+        <div class="exploration-prompt">
+            {{ prompt }}
+        </div>
+        <div class="exploration-problem">
+            {{{ html }}}
+        </div>
+    </script>
+
+    <script id="challenge-node-partial" type="text/x-handlebars-template">
+        <div class="challenge-prompt">
+            {{ prompt }}
+        </div>
+        <div class="challenge-problem">
+            {{{ html }}}
+        </div>
+    </script>
+
+    <script id="practice-node-partial" type="text/x-handlebars-template">
+        <div class="practice-prompt">
+            {{ prompt }}
+        </div>
+        <div class="practice-problem">
+            {{{ html }}}
+        </div>
+    </script>
+
+    <script id="quiz-node-partial" type="text/x-handlebars-template">
+        <form>
+            {{#each problems}}
+                {{> multiple-choice }}
+            {{/each}}
+            <button type="submit" class="btn btn-large">Check Answers</button>
+        </form>
+    </script>
+
+    <script id="multiple-choice-partial" type="text/x-handlebars-template">
+        <div class="quiz-problem">
+            <h3>Problem</h3>
+            <p>{{ prompt }}</p>
+            {{#each options}}
+            <label class="radio">
+                <input type="radio"> {{ content }}
+            </label>
+            {{/each}}
+        </div>
+    </script>
+
+    <script id="glue-node-partial" type="text/x-handlebars-template">
+        <div>{{ content }}</div>
+    </script>
+
+    <script id="richtext-node-partial" type="text/x-handlebars-template">
+        <div>{{ content }}</div>
+    </script>
+
+    <script type="text/x-handlebars-template">
+                        <i class="{{ icon }} pull-left"></i>
+                    <a href="#{{ slug }}">{{ title }}</a>
+    </script>
+    <script id="sidebar-template" type="text/x-handlebars-template">
+        <div class="nav-wrapper">
+            <ul class="nav nav-list">
+            {{#eachIndexed modules}}
+                <li class="nav-header">{{ title }}</li>
+                {{#each nodes}}
+                <li>
+                    <div class="{{ nodeType }}e circle"></div>
+                </li>
+                {{/each}}
+            {{/eachIndexed}}
+            </ul>
+        </div>
+    </script>
+
+    <script id="main-template" type="text/x-handlebars-template">
+        {{#each modules}}
+        <div class="module">
+            <h1 class="module-heading">{{ title }}</h1>
+            {{#eachIndexed nodes}}
+            <div class="node persist-area" id="{{ slug }}">
+                <div class="node-heading">
+                    <span>{{ title }}</span>
+                </div>
+                <div class="node-content">
+                    {{#equal nodeType "video" }}
+                        {{> video-node }}
+                    {{/equal}}
+                    {{#equal nodeType "exploration" }}
+                        {{> exploration-node }}
+                    {{/equal}}
+                    {{#equal nodeType "challenge" }}
+                        {{> challenge-node }}
+                    {{/equal}}
+                    {{#equal nodeType "practice" }}
+                        {{> practice-node }}
+                    {{/equal}}
+                    {{#equal nodeType "quiz" }}
+                        {{> quiz-node }}
+                    {{/equal}}
+                    {{#equal nodeType "glue" }}
+                        {{> glue-node }}
+                    {{/equal}}
+                    {{#equal nodeType "text" }}
+                        {{> text-node }}
+                    {{/equal}}
+                </div>
+            </div>
+            {{/eachIndexed}}
+        </div>
+        {{/each}}
+
+        <div class="node-heading" id="sticky-node-heading">
+            <span>Title</span>
+            <div class="expand-fullscreen">
+                <i class="icon-fullscreen"></i>
+                <i class="icon-resize-small hidden"></i>
+            </div>
+        </div>
+    </script>
+</head>
+<body>
+    <div class="background-gradient"></div>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" href="#">
+                    Khan Academy
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div id="sidebar">
+                <div id="sidebar-inner"></div>
+            </div>
+            <div id="main"></div>
+            <div id="extra">
+                <div id="badges">
+<img src="http://www.khanacademy.org/images/badges/meteorite-medium.png">                
+<img src="http://www.khanacademy.org/images/badges/meteorite-medium.png">                
+                </div>
+                <div id="qa">
+                    <ul class="nav nav-tabs">
+                      <li><a href="#home" data-toggle="tab">Questions</a></li>
+                      <li><a href="#profile" data-toggle="tab">Answers</a></li>
+                      <li><a href="#messages" data-toggle="tab">Comments</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
