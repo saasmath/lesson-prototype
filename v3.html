@@ -89,6 +89,7 @@
                 {{#each nodes}}
                 <li>
                     <div class="{{ nodeType }}e circle"></div>
+                    <a href="#{{ slug }}">{{ title }}</a>
                 </li>
                 {{/each}}
             {{/eachIndexed}}
@@ -150,6 +151,7 @@
                 <a class="brand" href="#">
                     Khan Academy
                 </a>
+                <button class="btn btn-primary" id="expandButton">Expand Q+A</button>
             </div>
         </div>
     </div>

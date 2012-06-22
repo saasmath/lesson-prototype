@@ -12,22 +12,19 @@ $(document).ready(function(){
     var extraCompressQA = "span1 offset14";
 
     // initialize
-    expandQA();
-
-    sidebar.toggle(function() {
-        compressQA();
-    }, function() {
-        expandQA();
-    });
+    compressQA();
 
     // TODO: fix this so it's based on a data attribute.
-    extra.toggle(function() {
-        compressQA();
-    }, function() {
+    $("#expandButton").toggle(function() {
         expandQA();
+    }, function() {
+        compressQA();
     });
 
     function expandQA () {
+        $("li a", sidebar).css("visibility", "hidden");
+        $("li.nav-header", sidebar).css("visibility", "hidden");
+
         sidebar.removeClass(sidebarCompressQA);
         main.removeClass(mainCompressQA);
         extra.removeClass(extraCompressQA);
@@ -38,6 +35,9 @@ $(document).ready(function(){
     }
 
     function compressQA () {
+        $("li a", sidebar).css("visibility", "visible");
+        $("li.nav-header", sidebar).css("visibility", "visible");
+
         sidebar.removeClass(sidebarExpandQA);
         main.removeClass(mainExpandQA);
         extra.removeClass(extraExpandQA);
